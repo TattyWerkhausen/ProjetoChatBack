@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using ChatWeb.ViewModels;
+using Projeto.Chat.Api.Command;
 using Projeto.Chat.Api.ViewModels;
 using Projeto.Chat.Domain.Models;
 using Projeto.Chat.Domain.Models.Loggins;
@@ -13,7 +14,8 @@ namespace ChatWeb.Config.AutoMapper
         {
             CreateMap<Usuario, UsuarioViewModel>();
             CreateMap<Loggin, LogginViewModel>();
-            CreateMap<Mensagem, MensagemViewModel>();
+            CreateMap<Mensagem, ReceberMensagemVM>();
+           // CreateMap<Mensagem, EnviarMensagem>();
         }
     }
 }

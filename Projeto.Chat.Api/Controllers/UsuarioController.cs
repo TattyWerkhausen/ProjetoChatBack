@@ -11,6 +11,7 @@ namespace ChatWeb.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    // Controller intermedia banco de dados e front end
     public class UsuarioController : ControllerBase
     {
         private readonly UsuarioRepository _usuarioRepository;
@@ -20,6 +21,7 @@ namespace ChatWeb.Controllers
             _usuarioRepository = usuarioRepository;
             _mapper = mapper;
         }
+        // Metodo que recebe os dados enviados pela service e passa para o repositorio, cadastrando o usuario
         [HttpPost("cadastrando")]
         public async Task<IActionResult> Cadastrar([FromBody] UsuarioViewModel cadastroVM)
         {
@@ -35,5 +37,23 @@ namespace ChatWeb.Controllers
             var usuariosVm = _mapper.Map<List<UsuarioViewModel>>(usuarios);
             return Ok(usuariosVm);
         }
+        [HttpGet("buscarUsuario/{nome}")]
+        public async Task<IActionResult> BuscarUsuarioNome(string nome)
+        {
+            var usuario = await _usuarioRepository.BuscarNomeUsuarioAsync(nome);
+            var usuarioVM = _mapper.Map<UsuarioViewModel>(usuario);
+            return Ok(usuarioVM);
+        }
+        /*   [HttpPost("enviarMensagem")]
+           public async Task<IActionResult> EnviarMensagem([FromBody] UsuarioViewModel usuarioVM)
+           {
+               usuarioVM.Id = Guid.NewGuid();
+               foreach(var msg in usuarioVM.MensagensEnviadas)
+               {
+                   msg.Id = Guid.NewGuid();
+                   msg.IdUsuarioEnviou = usuarioVM.Id;
+               }
+               await _
+           }*/
     }
 }

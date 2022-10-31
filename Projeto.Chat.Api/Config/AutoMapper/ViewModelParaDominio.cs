@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using ChatWeb.ViewModels;
+using Projeto.Chat.Api.Command;
 using Projeto.Chat.Api.ViewModels;
 using Projeto.Chat.Domain.Models;
 using Projeto.Chat.Domain.Models.Loggins;
@@ -18,8 +19,7 @@ namespace ChatWeb.Config.AutoMapper
             CreateMap<LogginViewModel, Loggin>().ConstructUsing(logginVm => new Loggin(logginVm.Id,
                 logginVm.Nome, logginVm.Cpf, logginVm.Senha));
 
-            CreateMap<MensagemViewModel, Mensagem>().ConstructUsing(mensagemVm => new Mensagem(mensagemVm.Id,
-                mensagemVm.UsuarioEnviouId, mensagemVm.UsuarioRecebeuId, mensagemVm.Conteudo, mensagemVm.Data));
+           
         }
     }
 }

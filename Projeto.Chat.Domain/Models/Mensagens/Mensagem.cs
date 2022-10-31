@@ -4,29 +4,29 @@ namespace Projeto.Chat.Domain.Models.Mensagens
 {
     public class Mensagem
     {
-        public Mensagem()
+        protected Mensagem()
         {
         }
         public Guid Id { get; private set; }
-        public Guid UsuarioEnviouId { get; private set; }
-        public Guid UsuarioRecebeuId { get; private set; }
+        public Guid? IdUsuarioEnviou { get; private set; }
+        public Guid? IdUsuarioRecebeu { get; private set; }
         public string Conteudo { get; private set; }
         public DateTime Data { get; private set; }
         public Usuario UsuarioEnviou { get; private set; }
         public Usuario UsuarioRecebeu { get; private set; }
-        public Mensagem(Guid id, Guid usuarioEnviouId, Guid usuarioRecebeuId, string conteudo, DateTime data)
+        public Mensagem(Guid id, Guid idUsuarioEnviou, Guid idUsuarioRecebeu, string conteudo)
         {
             Id = id;
-            UsuarioEnviouId = usuarioEnviouId;
-            UsuarioRecebeuId = usuarioRecebeuId;
+            IdUsuarioEnviou = idUsuarioEnviou;
+            IdUsuarioRecebeu = idUsuarioRecebeu;
             Conteudo = conteudo;
-            Data = data;
+            Data = DateTime.Now;
         }
 
-        public void Editar(Guid usuarioEnviouId, Guid usuarioRecebeuId, string conteudo)
+        public void Editar(Guid idUsuarioEnviou, Guid idUsuarioRecebeu, string conteudo)
         {
-            UsuarioEnviouId = usuarioEnviouId;
-            UsuarioRecebeuId = usuarioRecebeuId;
+            IdUsuarioEnviou = idUsuarioEnviou;
+            IdUsuarioRecebeu = idUsuarioRecebeu;
             Conteudo = conteudo;
         }
     }

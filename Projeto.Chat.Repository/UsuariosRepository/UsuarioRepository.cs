@@ -34,6 +34,11 @@ namespace Projeto.Chat.Repository.CadastrosRepository
         {
             return await _db.Usuarios.FirstOrDefaultAsync(usuario => usuario.Id == id);
         }
+        public async Task<Usuario> BuscarNomeUsuarioAsync(string nome)
+        {
+            return await _db.Usuarios.FirstOrDefaultAsync(usuario => usuario.Nome.ToLower().
+            Contains(nome.ToLower()));
+        }
         // Busca usuario por Nome e senha, transformando maiscula em minusculaa
         public async Task<Usuario> BuscandoPorNomeAsync(string nome, string senha)
         {

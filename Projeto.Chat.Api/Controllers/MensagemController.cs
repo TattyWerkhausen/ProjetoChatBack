@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using Projeto.Chat.Api.Command;
 using Projeto.Chat.Api.ViewModels;
+using Projeto.Chat.Domain.Models;
 using Projeto.Chat.Domain.Models.Mensagens;
 using Projeto.Chat.Repository.MensagensRepository;
 using System;
@@ -21,19 +23,20 @@ namespace Projeto.Chat.Api.Controllers
             _mensagemRepository = mensagemRepository;
         }
         [HttpPost("enviarMensagem")]
-        public async Task<IActionResult> EnviarMensagem([FromBody] MensagemViewModel mensagemViewModel)
+        public async Task<IActionResult> EnviarMensagem([FromBody] EnviarMensagemCommand enviarMensagem)
         {
-            mensagemViewModel.Id = Guid.NewGuid();
-            var novaMensagem = _mapper.Map<Mensagem>(mensagemViewModel);
-            await _mensagemRepository.SalvarMensagemAsync(novaMensagem);
+            var mensagem = new Mensagem(Guid.NewGuid(), enviarMensagem.IdUsuarioEnviou, enviarMensagem.IdUsuarioRecebe, enviarMensagem.Conteudo);
+            await _mensagemRepository.EnviarMensagemAsync(mensagem);
             return Ok();
         }
-        [HttpGet("buscarTodasMensagens")]
-        public async Task<IActionResult> BuscarTodasMensagem()
+        [HttpGet("todasMensagens/{idUsuarioLogado}/{idUsuarioSelecionado}")]
+        // metodo exibir mensagens pegando de parametro os ids passado atravez da minha servic no front end.
+        public async Task<IActionResult> ExibirTodasMensagens(Guid idUsuarioLogado, Guid idUsuarioSelecionado)
         {
-            var mensagens = await _mensagemRepository.BuscarTodasMensagens();
-            var mensagemVM = _mapper.Map<List<MensagemViewModel>>(mensagens);
-            return Ok(mensagemVM);
+            var mensagens = await _mensagemRepository.BuscarTodasMensagensAsync(idUsuarioLogado, idUsuarioSelecionado);
+            var mensagensVM = _mapper.Map<List<ReceberMensagemVM>>(mensagens);
+            return Ok(mensagensVM);
         }
+
     }
 }

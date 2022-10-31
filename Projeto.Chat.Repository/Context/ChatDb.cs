@@ -18,6 +18,7 @@ namespace Projeto.Chat.Repository.Context
             modelBuilder.ApplyConfiguration(new UsuarioFA());
             modelBuilder.ApplyConfiguration(new LogginFA());
             modelBuilder.ApplyConfiguration(new MensagemFA());
+
             base.OnModelCreating(modelBuilder);
         }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -29,7 +30,9 @@ namespace Projeto.Chat.Repository.Context
 
             optionsBuilder
                 .EnableSensitiveDataLogging(true)
-                .UseNpgsql(config.GetConnectionString("DefaultConnection"));
+                .UseSqlServer(config.GetConnectionString("DefaultConnection"));
+
+
             base.OnConfiguring(optionsBuilder);
         }
     }

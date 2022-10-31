@@ -9,11 +9,10 @@ namespace Projeto.Chat.Repository.FluentApi
         public void Configure(EntityTypeBuilder<Mensagem> builder)
         {
             builder.HasKey(mensagem => mensagem.Id);
-            builder.Property(mensagem => mensagem.Conteudo);
-            builder.HasOne(mensagem => mensagem.UsuarioEnviou).WithMany(usuario => usuario.MensagensEnviadas)
+          /*  builder.HasOne(mensagem => mensagem.UsuarioEnviou).WithMany(usuario => usuario.MensagensEnviadas)
                 .HasForeignKey(mensagens => mensagens.UsuarioEnviouId);
             builder.HasOne(mensagem => mensagem.UsuarioRecebeu).WithMany(usuario => usuario.MensagensRecebidas)
-                .HasForeignKey(mensagens => mensagens.UsuarioRecebeuId);
+                .HasForeignKey(mensagens => mensagens.UsuarioRecebeuId);*/
         }
     }
 }
